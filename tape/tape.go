@@ -3,18 +3,18 @@ package tape
 // Tape implements an "infinite" tape for the turing machine with a head control.
 type Tape struct {
 	head int64
-	tape []string
+	tape []byte
 }
 
 // RTape is a interface implemented by the Tape struct. Only supports Read operations on the tape.
 type RTape interface {
 	MoveRight()
 	MoveLeft()
-	ReadSymbol() string
+	ReadSymbol() byte
 }
 
 const (
-	BlankSymbol     = ""
+	BlankSymbol     = byte('$')
 	initialTapeSize = 1000
 )
 
@@ -32,7 +32,7 @@ func (t *Tape) increaseTapeSize() {
 	if t.head < 0 {
 		newTapeSize := Max(2*Abs(t.head), int64(len(t.tape)))
 
-		newTape := make([]string, newTapeSize)
+		newTape := make([]byte, newTapeSize)
 		for newTapeIndex := range newTape {
 			newTape[newTapeIndex] = BlankSymbol
 		}
@@ -43,7 +43,7 @@ func (t *Tape) increaseTapeSize() {
 		tapeLen := int64(len(t.tape))
 		newTapeSize := Max(2*(t.head-tapeLen+1), tapeLen)
 
-		newTape := make([]string, newTapeSize)
+		newTape := make([]byte, newTapeSize)
 		for newTapeIndex := range newTape {
 			newTape[newTapeIndex] = BlankSymbol
 		}
@@ -60,7 +60,7 @@ func (t *Tape) MoveLeft() {
 	t.head--
 }
 
-func (t *Tape) ReadSymbol() string {
+func (t *Tape) ReadSymbol() byte {
 	if !t.isHeadLocationOnTape() {
 		return BlankSymbol
 	}
@@ -69,7 +69,7 @@ func (t *Tape) ReadSymbol() string {
 }
 
 // WriteSymbol writes the given symbol on the tape in the place pointed by the head.
-func (t *Tape) WriteSymbol(symbol string) {
+func (t *Tape) WriteSymbol(symbol byte) {
 	if !t.isHeadLocationOnTape() {
 		t.increaseTapeSize()
 	}
@@ -78,7 +78,7 @@ func (t *Tape) WriteSymbol(symbol string) {
 }
 
 func NewTape() *Tape {
-	tape := make([]string, initialTapeSize)
+	tape := make([]byte, initialTapeSize)
 
 	for tapeIndex := range tape {
 		tape[tapeIndex] = BlankSymbol

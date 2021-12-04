@@ -38,14 +38,14 @@ func TestTapeRightWriting(t *testing.T) {
 	tape := NewTape()
 
 	for i := 0; i < 5000; i++ {
-		tape.WriteSymbol(arr[i])
+		tape.WriteSymbol(arr[i][0])
 		tape.MoveRight()
 	}
 
 	tape.MoveLeft()
 
 	for i := 5000 - 1; i >= 0; i-- {
-		assert.Equal(t, arr[i], tape.ReadSymbol())
+		assert.Equal(t, arr[i][0], tape.ReadSymbol())
 		tape.MoveLeft()
 	}
 }
@@ -60,14 +60,14 @@ func TestTapeLeftWriting(t *testing.T) {
 	tape := NewTape()
 
 	for i := 0; i < 5000; i++ {
-		tape.WriteSymbol(arr[i])
+		tape.WriteSymbol(arr[i][0])
 		tape.MoveLeft()
 	}
 
 	tape.MoveRight()
 
 	for i := 5000 - 1; i >= 0; i-- {
-		assert.Equal(t, arr[i], tape.ReadSymbol())
+		assert.Equal(t, arr[i][0], tape.ReadSymbol())
 		tape.MoveRight()
 	}
 }
@@ -82,7 +82,7 @@ func TestLeftAndRightWriting(t *testing.T) {
 	tape := NewTape()
 
 	for i := 0; i < 5000; i++ {
-		tape.WriteSymbol(arr[i+10000])
+		tape.WriteSymbol(arr[i+10000][0])
 		tape.MoveRight()
 	}
 
@@ -93,14 +93,14 @@ func TestLeftAndRightWriting(t *testing.T) {
 	tape.MoveLeft()
 
 	for i := 10000 - 1; i >= 0; i-- {
-		tape.WriteSymbol(arr[i])
+		tape.WriteSymbol(arr[i][0])
 		tape.MoveLeft()
 	}
 
 	tape.MoveRight()
 
 	for i := 0; i < 15000; i++ {
-		assert.Equal(t, tape.ReadSymbol(), arr[i])
+		assert.Equal(t, tape.ReadSymbol(), arr[i][0])
 		tape.MoveRight()
 	}
 }
