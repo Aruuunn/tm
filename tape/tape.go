@@ -6,11 +6,16 @@ type Tape struct {
 	tape []string
 }
 
+// RTape is a interface implemented by the Tape struct. Only supports Read operations on the tape.
+type RTape interface {
+	MoveRight()
+	MoveLeft()
+	ReadSymbol() string
+}
+
 const (
 	BlankSymbol     = ""
 	initialTapeSize = 1000
-	RightDirection  = iota
-	LeftDirection
 )
 
 func (t *Tape) isHeadLocationOnTape() bool {
