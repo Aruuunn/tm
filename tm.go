@@ -71,7 +71,7 @@ func (tm *TM) getTransitionForCurrentState(readSymbol byte) (Transition, error) 
 }
 
 func (tm *TM) Run() {
-	for tm.currentState != tm.acceptedState {
+	for {
 		symbol := tm.tape.ReadSymbol()
 		transition, err := tm.getTransitionForCurrentState(symbol)
 
