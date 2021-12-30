@@ -76,7 +76,6 @@ func (tm *TM) Run() {
 		transition, err := tm.getTransitionForCurrentState(symbol)
 
 		if err != nil {
-			// TM has entered the reject state
 			return
 		}
 
